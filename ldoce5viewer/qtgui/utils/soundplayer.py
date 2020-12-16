@@ -111,7 +111,7 @@ class GstreamerBackend(Backend):
             if not self._data:
                 appsrc.emit('end-of-stream')
                 return
-            appsrc.emit('push-buffer', Gst.Buffer.new_wrapped(self._data[:size]))
+            appsrc.emit('push-buffer', Gst.Buffer.new_wrapped(self._data[:size].data()))
             self._data = self._data[size:]
 
         self._data = data

@@ -11,13 +11,13 @@ try:
     import cPickle as pickle
 except ImportError:
     import pickle
-
 from PyQt5.QtCore import QReadWriteLock
 
 
 __config = None
 
 
+# singleton config here
 def get_config():
     global __config
     if not __config:
@@ -154,6 +154,7 @@ class __Config(object):
         return '.tmp'
 
     def _remove_tmps(self):
+        """"remove .tmp files from config and data directories"""
         for name in os.listdir(self._config_dir) + os.listdir(self._data_dir):
             if name.endswith(self.tmp_suffix):
                 path = os.path.join(self._config_dir, name)
@@ -166,6 +167,7 @@ class __Config(object):
                     pass
 
     def _prepare_dir(self):
+        """prepare config and data directory"""
         if not os.path.exists(self._config_dir):
             os.makedirs(self._config_dir)
         if not os.path.exists(self._data_dir):

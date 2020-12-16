@@ -52,20 +52,18 @@ def _setup_py2exe(config):
 
 
 def run(argv):
-    '''start the application'''
+    """start the application"""
 
     config = get_config()
 
     # py2exe
-    if sys.platform == 'win32' and \
-            (hasattr(sys, 'frozen') or hasattr(sys, 'importers')):
+    if sys.platform == 'win32' and (hasattr(sys, 'frozen') or hasattr(sys, 'importers')):
         _setup_py2exe(config)
 
     # Parse arguments
     optparser = OptionParser()
     optparser.set_defaults(debug=False)
-    optparser.add_option(
-        '--debug', action='store_true', help='Enable debug mode')
+    optparser.add_option('--debug', action='store_true', help='Enable debug mode')
     (options, args) = optparser.parse_args(argv)
 
     # stderr wrapper
@@ -74,8 +72,7 @@ def run(argv):
     # logging
     logger = logging.getLogger()
     handler = MyStreamHandler()
-    handler.setFormatter(
-        logging.Formatter('%(levelname)s:%(name)s:%(message)s'))
+    handler.setFormatter(logging.Formatter('%(levelname)s:%(name)s:%(message)s'))
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG if options.debug else logging.ERROR)
 
